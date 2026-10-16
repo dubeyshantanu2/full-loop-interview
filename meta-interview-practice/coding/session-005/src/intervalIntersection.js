@@ -1,13 +1,29 @@
 /**
- * Computes intersection intervals between two sorted disjoint interval lists.
- *
- * @param {number[][]} firstList - Array of disjoint sorted [start, end] intervals.
- * @param {number[][]} secondList - Array of disjoint sorted [start, end] intervals.
- * @returns {number[][]} Array of overlapping interval intersections.
+ * @param {number[][]} firstList
+ * @param {number[][]} secondList
+ * @return {number[][]}
  */
 function intervalIntersection(firstList, secondList) {
-  // TODO: Implement two-pointer intersection scan.
+  const result = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < firstList.length && j < secondList.length) {
+    const start = Math.max(firstList[i][0], secondList[j][0]);
+    const end = Math.min(firstList[i][1], secondList[j][1]);
+
+    if (start <= end) {
+      result.push([start, end]);
+    }
+
+    if (firstList[i][1] < secondList[j][1]) {
+      i++;
+    } else {
+      j++;
+    }
+  }
+
+  return result;
 }
 
 module.exports = { intervalIntersection };
-
